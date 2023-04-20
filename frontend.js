@@ -1,184 +1,208 @@
-function switchScreen(screen) {
-    var home = document.getElementById("home");
-    var signup = document.getElementById("signup");
+const userLoggedin = false;
+
+const loginForm = document.querySelector("#loginForm");
+const signupForm = document.querySelector("#signupForm");
+
+const game__button = document.querySelector("#game__button");
+
+var home = document.getElementById("home");
     var login = document.getElementById("login");
     var about = document.getElementById("about");
-    var playGame = document.getElementById("playGame");
-    var settings = document.getElementById("settings");
+    var game = document.getElementById("playGame");
+
+function switchScreen(screen) {
+    var home = document.getElementById("home");
+    var login = document.getElementById("login");
+    var about = document.getElementById("about");
+    var game = document.getElementById("playGame");
 
     if (screen == "home") {
         home.style.display = "block";
-        signup.style.display = "none";
         login.style.display = "none";
         about.style.display = "none";
         game.style.display = "none";
-        settings.style.display = "none";
-    } else if (screen == "signup") {
-        home.style.display = "none";
-        signup.style.display = "block";
-        login.style.display = "none";
-        about.style.display = "none";
-        game.style.display = "none";
-        settings.style.display = "none";
     } else if (screen == "login") {
         home.style.display = "none";
-        signup.style.display = "none";
         login.style.display = "block";
         about.style.display = "none";
         game.style.display = "none";
-        settings.style.display = "none";
     } else if (screen == "about") {
         home.style.display = "none";
-        signup.style.display = "none";
         login.style.display = "none";
         about.style.display = "block";
         game.style.display = "none";
-        settings.style.display = "none";
     } else if (screen == "game") {
         home.style.display = "none";
-        signup.style.display = "none";
         login.style.display = "none";
         about.style.display = "none";
         game.style.display = "block";
-        settings.style.display = "none";
     } else if (screen == "settings") {
         home.style.display = "none";
-        signup.style.display = "none";
         login.style.display = "none";
         about.style.display = "none";
         game.style.display = "none";
-        settings.style.display = "block";
     }
 }
 
-$('.form').find('input, textarea').on('keyup blur focus', function (e) {
+function setFormMessage(formElement, type, message) {
+    const messageElement = formElement.querySelector(".form__message");
 
-    var $this = $(this),
-        label = $this.prev('label');
+    messageElement.textContent = message;
+    messageElement.classList.remove("form__message--success", "form__message--error");
+    messageElement.classList.add(`form__message--${type}`);
+}
 
-    if (e.type === 'keyup') {
-        if ($this.val() === '') {
-            label.removeClass('active highlight');
+function setInputError(inputElement, message) {
+    inputElement.classList.add("form__input--error");
+    inputElement.parentElement.querySelector(".form__input-error-message").textContent = message;
+}
+
+function clearInputError(inputElement) {
+    inputElement.classList.remove("form__input--error");
+    inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+
+    document.querySelector("#linkCreateAccount").addEventListener("click", e => {
+        e.preventDefault();
+        loginForm.classList.add("form--hidden");
+        signupForm.classList.remove("form--hidden");
+        home.style.display = "none";
+        login.style.display = "block";
+        about.style.display = "none";
+        game.style.display = "none";
+        document.getElementById("signupForm").reset();
+        document.querySelectorAll(".form__input").forEach(inputElement => {
+            clearInputError(inputElement)
+        });
+    });
+
+    document.querySelector("#linkLogin").addEventListener("click", e => {
+        e.preventDefault();
+        loginForm.classList.remove("form--hidden");
+        signupForm.classList.add("form--hidden");
+        home.style.display = "none";
+        login.style.display = "block";
+        about.style.display = "none";
+        game.style.display = "none";
+        document.getElementById("loginForm").reset();
+        //TODO:
+        // document.querySelectorAll(".form__input").forEach(inputElement => {
+        //     clearInputError(inputElement)
+        // });
+    });
+
+    document.querySelector("#loginForm").addEventListener("submit", e => {
+        e.preventDefault();
+
+        //TODO
+        // Perform your AJAX/Fetch login
+        if (false) {
+
         } else {
-            label.addClass('active highlight');
+            game__button.classList.remove("game--hidden");
+            login.style.display = "none";
+            game.style.display = "block";     
         }
-    } else if (e.type === 'blur') {
-        if ($this.val() === '') {
-            label.removeClass('active highlight');
-        } else {
-            label.removeClass('highlight');
-        }
-    } else if (e.type === 'focus') {
 
-        if ($this.val() === '') {
-            label.removeClass('highlight');
-        }
-        else if ($this.val() !== '') {
-            label.addClass('highlight');
-        }
-    }
+        setFormMessage(loginForm, "error", "Invalid username/password combination");
+    });
 
+    //TODO:
+    // document.querySelector("#signupForm").addEventListener("submit", function (e) {
+    //     e.preventDefault();
+    //     flag = true;
+    //     const inputs = form.querySelectorAll('input, select');
+    //     let emptyInputs = [];
+    //     inputs.forEach(function (input) {
+    //         if (input.value.trim() === '') {
+    //             setFormMessage(signupForm, "error", "Please fill all fileds");
+    //             flag = false;
+    //         }
+    //     });
+
+    //     password = document.getElementById("signupPassword");
+    //     confirmPassword = document.getElementById("confirmPassword");
+    //     if (password != confirmPassword){
+    //         setFormMessage(signupForm, "error", "The passwords are different");
+    //         flag = false;
+    //     }
+
+    //     if (flag){
+    //         document.getElementById("signupForm").submit();
+    //     }
+    //     // setFormMessage(signupForm, "error", "Invalid username/password combination");
+    // });
+    //TODO:
+    // document.querySelectorAll(".form__input").forEach(inputElement => {
+    //     const passwordRegex = /^[a-zA-Z0-9]+$/;
+    //     const numbersPattern = "^[0-9]+$"
+    //     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //     inputElement.addEventListener("blur", e => {
+    //         if (e.target.id === "signupPassword") {
+    //             setInputError(inputElement, "Please enter only numbers and letters");
+    //         }
+    //         if (e.target.id === "signupFirstName" && !(re.match(numbersPattern, e.target.value))) {
+    //             setInputError(inputElement, "First name can't contain numbers");
+    //         }
+    //         if (e.target.id === "signupLastName" && !(re.match(numbersPattern, e.target.value))) {
+    //             setInputError(inputElement, "Last name can't contain numbers");
+    //         }
+    //         if (e.target.id === "signupEmail" && !(emailPattern.test(e.target.value))) {
+    //             setInputError(inputElement, "invalide email");
+    //         }
+    //     });
+
+    //     inputElement.addEventListener("input", e => {
+    //         clearInputError(inputElement);
+    //     });
+    // });
 });
 
-$('.tab a').on('click', function (e) {
 
-    e.preventDefault();
+// $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 
-    $(this).parent().addClass('active');
-    $(this).parent().siblings().removeClass('active');
+//     var $this = $(this),
+//         label = $this.prev('label');
 
-    target = $(this).attr('href');
+//     if (e.type === 'keyup') {
+//         if ($this.val() === '') {
+//             label.removeClass('active highlight');
+//         } else {
+//             label.addClass('active highlight');
+//         }
+//     } else if (e.type === 'blur') {
+//         if ($this.val() === '') {
+//             label.removeClass('active highlight');
+//         } else {
+//             label.removeClass('highlight');
+//         }
+//     } else if (e.type === 'focus') {
 
-    $('.tab-content > div').not(target).hide();
+//         if ($this.val() === '') {
+//             label.removeClass('highlight');
+//         }
+//         else if ($this.val() !== '') {
+//             label.addClass('highlight');
+//         }
+//     }
 
-    $(target).fadeIn(600);
+// });
 
-});
+// $('.tab a').on('click', function (e) {
 
-var Days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];// index => month [0-11]
-$(document).ready(function () {
-    var option = '<option value="day">day</option>';
-    var selectedDay = "day";
-    for (var i = 1; i <= Days[0]; i++) { //add option days
-        option += '<option value="' + i + '">' + i + '</option>';
-    }
-    $('#day').append(option);
-    $('#day').val(selectedDay);
+//     e.preventDefault();
 
-    var option = '<option value="month">month</option>';
-    var selectedMon = "month";
-    for (var i = 1; i <= 12; i++) {
-        option += '<option value="' + i + '">' + i + '</option>';
-    }
-    $('#month').append(option);
-    $('#month').val(selectedMon);
+//     $(this).parent().addClass('active');
+//     $(this).parent().siblings().removeClass('active');
 
-    var option = '<option value="month">month</option>';
-    var selectedMon = "month";
-    for (var i = 1; i <= 12; i++) {
-        option += '<option value="' + i + '">' + i + '</option>';
-    }
-    $('#month2').append(option);
-    $('#month2').val(selectedMon);
+//     target = $(this).attr('href');
 
-    var d = new Date();
-    var option = '<option value="year">year</option>';
-    selectedYear = "year";
-    for (var i = 1930; i <= d.getFullYear(); i++) {// years start i
-        option += '<option value="' + i + '">' + i + '</option>';
-    }
-    $('#year').append(option);
-    $('#year').val(selectedYear);
-});
+//     $('.tab-content > div').not(target).hide();
 
-function isLeapYear(year) {
-    year = parseInt(year);
-    if (year % 4 != 0) {
-        return false;
-    } else if (year % 400 == 0) {
-        return true;
-    } else if (year % 100 == 0) {
-        return false;
-    } else {
-        return true;
-    }
-}
+//     $(target).fadeIn(600);
 
-function change_year(select) {
-    if (isLeapYear($(select).val())) {
-        Days[1] = 29;
-    }
-    else {
-        Days[1] = 28;
-    }
-    if ($("#month").val() == 2) {
-        var day = $('#day');
-        var val = $(day).val();
-        $(day).empty();
-        var option = '<option value="day">day</option>';
-        for (var i = 1; i <= Days[1]; i++) { //add option days
-            option += '<option value="' + i + '">' + i + '</option>';
-        }
-        $(day).append(option);
-        if (val > Days[month]) {
-            val = 1;
-        }
-        $(day).val(val);
-    }
-}
-
-function change_month(select) {
-    var day = $('#day');
-    var val = $(day).val();
-    $(day).empty();
-    var option = '<option value="day">day</option>';
-    var month = parseInt($(select).val()) - 1;
-    for (var i = 1; i <= Days[month]; i++) { //add option days
-        option += '<option value="' + i + '">' + i + '</option>';
-    }
-    $(day).append(option);
-    if (val > Days[month]) {
-        val = 1;
-    }
-    $(day).val(val);
-}
+// });
