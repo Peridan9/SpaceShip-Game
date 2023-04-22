@@ -4,6 +4,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  
 
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script src="frontend.js" referrerpolicy="origin"></script>
@@ -15,24 +17,36 @@
 
   <header>
 
-    <div class="appName"></div>
-    <div class="logo"></div>
+    <div class="appName">SPACESHIP</div>
+    <!-- <i class="fa-duotone fa-ufo-beam"></i> -->
+    <img src="spaceship.png" alt="Logo">
 
   </header>
 
+  <nav>
+    <ul>
+      <li><a class="" id="welcomTab" href="#home" onclick="switchScreen('home')">Welcome</a></li>
+      <li><a class="" id="signupTab" href="#signup" onclick="switchScreen('signup')">Signup</a></li>
+      <li><a class="" id="loginTab" href="#login" onclick="switchScreen('login')">Login</a></li>
+      <li><a class="" id="aboutTab" href="#about" onclick="switchScreen('about')">About</a></li>
+      <li><a class="gameTab hidden" id="game__button" href="#game" onclick="switchScreen('game')">Play game</a></li>
+    </ul>
+  </nav>
 
-  <ul>
-    <li><a href="#home" onclick="switchScreen('home')">Home</a></li>
-    <li><a href="#login" onclick="switchScreen('login')">Login</a></li>
-    <li><a href="#about" onclick="switchScreen('about')">about</a></li>
-    <li><a class="game--hidden" id="game__button" href="#game" onclick="switchScreen('game')">Play game</a></li>
-  </ul>
-
-  <div class="container">
+  <div class="contant">
 
     <div id="home">
-      <h2>Home</h2>
-      <p>Welcome to the home screen!</p>
+      <h2>Welcome</h2>
+      <i class="fa-duotone fa-ufo-beam"></i>
+      <!-- TODO: add links -->
+      <p>Daniella kapustyan 315340349 <a id="siteLink"
+          href="https://web-development-environments-2023.github.io/315340349/">click here </a>to see my Tzipi Shavit
+        site</p>
+      <p>Daniel Peri 205968126 <a id="siteLink"
+          href="https://web-development-environments-2023.github.io/205968126/">click here </a>to see my "Ozzy" Osbourne
+        site</p>
+      <p>To play the game you must <button class="login-button" onclick="switchScreen('login')">Login</button></p>
+      <p>Don't have an account? <button class="signup-button" onclick="switchScreen('signup')">Signup</button></p>
     </div>
 
     <div id="login">
@@ -40,23 +54,23 @@
         <h1 class="form__title">Login</h1>
         <div class="form_message form__message--error"></div>
         <div class="form__input-group">
-          <input autofocus type="text" class="form__input" autofocus placeholder="Username">
+          <input autofocus type="text" class="form__input" id="loginUsername" autofocus placeholder="Username">
           <div class="form__input-error-message"></div>
         </div>
-        <div class="form__input-group">
-          <input type="password" class="form__input" placeholder="Password">
+        <div class="form__input-group password-container">
+          <input type="password" class="form__input" id="loginPassword" placeholder="Password">
+          <!-- <span class="fa-solid fa-eye" id="show_password" onclick="showLoginPassword()"></span> -->
           <div class="form__input-error-message"></div>
         </div>
         <button class="form__button" type="submit">Continue</button>
         <p class="form__text">
-          <a href="#" class="form__link">Forgot your password?</a>
-        </p>
-        <p class="form__text">
           <a class="form__link" href="./" id="linkCreateAccount">Don't have account? Create an account</a>
         </p>
       </form>
+    </div>
 
-      <form action="POST" class="form form--hidden" id="signupForm">
+    <div id="signup">
+      <form action="POST" class="form" id="signupForm">
         <h1 class="form__title">Signup</h1>
         <div class="form_message form__message--error"></div>
         <div class="form__input-group">
@@ -86,7 +100,7 @@
 
         <div class="birthdayContainer">
           <label>Birthday: </label>
-          <select id="birthdate" name="birthdate">
+          <select id="month" name="month">
             <option value="">-- month --</option>
             <option value="01">January</option>
             <option value="02">February</option>
@@ -151,22 +165,45 @@
             <option value="2012">2012</option>
             <option value="2011">2011</option>
             <option value="2010">2010</option>
-            </select>
+          </select>
         </div>
 
         <button class="form__button" type="submit">Continue</button>
         <p class="form__text">
-          <a class="form__link" href="./" id="linkLogin">Already have an account? Sing in</a>
+          <a class="form__link" href="./" id="linkLogin">Already have an account? Log in</a>
         </p>
       </form>
     </div>
-    <div id="about"></div>
+
+    <div id="about" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h2>About</h2>
+        </div>
+        <div class="modal-body">
+          <p>Daniella Kapustyan, Daniel Peri</p>
+          <p>TODO: add...</p>
+        </div>
+        <div class="modal-footer">
+          <h3>Thank you!</h3>
+        </div>
+      </div>
+    </div>
 
     <div class="screen" id="game">
       <canvas></canvas>
     </div>
 
-  </div>
+
+
+    <footer>
+      <p>Contact us: <a href="mailto:kapustya@post.bgu.ac.il">Daniella Kapustyan</a>
+        <a href="mailto:peridan@post.bgu.ac.il"> , Daniel Peri </a>
+      </p>
+    </footer>
 
 </body>
 
