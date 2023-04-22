@@ -7,6 +7,9 @@ var gamePage;
 var loginForm;
 var signupForm;
 
+var loginPassword;
+var eye;
+
 // our semi users db
 var users = {}
 users["p"] = "testuser"
@@ -22,6 +25,10 @@ function switchScreen(screen) {
     loginForm = document.getElementById("loginForm");
     signupForm = document.getElementById("signupForm");
 
+    loginEye = document.getElementById("show_login_password");
+    signupEye = document.getElementById("show_singup_password");
+    confirmEye = document.getElementById("show_confirm_password");
+
     span = document.getElementsByClassName("close")[0];
     if (screen == "home") {
         homePage.style.display = "block";
@@ -31,6 +38,10 @@ function switchScreen(screen) {
         gamePage.style.display = "none";
     } else if (screen == "signup") {
         clearFormMessages(signupForm);
+        signupPassword.type = "password";
+        signupEye.classList.remove("hide-password");
+        confirmPassword.type = "password";
+        confirmEye.classList.remove("hide-password");
         signupForm.reset();
         homePage.style.display = "none";
         signupPage.style.display = "block";
@@ -38,6 +49,8 @@ function switchScreen(screen) {
         aboutPage.style.display = "none";
     } else if (screen == "login") {
         clearFormMessages(loginForm);
+        loginPassword.type = "password";
+        loginEye.classList.remove("hide-password");
         loginForm.reset();
         homePage.style.display = "none";
         signupPage.style.display = "none";
@@ -54,17 +67,121 @@ function switchScreen(screen) {
     }
 }
 
-// function showLoginPassword(){
-//     var password = document.getElementById("#loginPassword");
-//     var eye = document.getElementById("#show_password")
-//     if (password.type === "password"){
-//         password.type = "text";
-//         eye.classList.add("hide-password")
-//     } else {
-//         password.type = "password"
-//         eye.classList.remove("hide-password")
-//     }
-// }
+var Days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];// index => month [0-11]
+$(document).ready(function () {
+    var option = '<option value="day">day</option>';
+    var selectedDay = "day";
+
+    loginPassword = document.getElementById("loginPassword");
+    signupPassword = document.getElementById("signupPassword");
+    confirmPassword = document.getElementById("confirmPassword");
+    loginEye = document.getElementById("show_login_password");
+    signupEye = document.getElementById("show_singup_password");
+    confirmEye = document.getElementById("show_confirm_password");
+
+    for (var i = 1; i <= Days[0]; i++) { //add option days
+        option += '<option value="' + i + '">' + i + '</option>';
+    }
+    $('#day').append(option);
+    $('#day').val(selectedDay);
+
+    var option = '<option value="month">month</option>';
+    var selectedMon = "month";
+    for (var i = 1; i <= 12; i++) {
+        option += '<option value="' + i + '">' + i + '</option>';
+    }
+    $('#month').append(option);
+    $('#month').val(selectedMon);
+
+    var option = '<option value="month">month</option>';
+    var selectedMon = "month";
+    for (var i = 1; i <= 12; i++) {
+        option += '<option value="' + i + '">' + i + '</option>';
+    }
+    $('#month2').append(option);
+    $('#month2').val(selectedMon);
+
+    var d = new Date();
+    var option = '<option value="year">year</option>';
+    selectedYear = "year";
+    for (var i = 1930; i <= d.getFullYear(); i++) {// years start i
+        option += '<option value="' + i + '">' + i + '</option>';
+    }
+    $('#year').append(option);
+    $('#year').val(selectedYear);
+});
+function isLeapYear(year) {
+    year = parseInt(year);
+    if (year % 4 != 0) {
+        return false;
+    } else if (year % 400 == 0) {
+        return true;
+    } else if (year % 100 == 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function change_year(select) {
+    if (isLeapYear($(select).val())) {
+        Days[1] = 29;
+
+    }
+    else {
+        Days[1] = 28;
+    }
+    if ($("#month").val() == 2) {
+        var day = $('#day');
+        var val = $(day).val();
+        $(day).empty();
+        var option = '<option value="day">day</option>';
+        for (var i = 1; i <= Days[1]; i++) { //add option days
+            option += '<option value="' + i + '">' + i + '</option>';
+        }
+        $(day).append(option);
+        if (val > Days[month]) {
+            val = 1;
+        }
+        $(day).val(val);
+    }
+}
+
+function change_month(select) {
+    var day = $('#day');
+    var val = $(day).val();
+    $(day).empty();
+    var option = '<option value="day">day</option>';
+    var month = parseInt($(select).val()) - 1;
+    for (var i = 1; i <= Days[month]; i++) { //add option days
+        option += '<option value="' + i + '">' + i + '</option>';
+    }
+    $(day).append(option);
+    if (val > Days[month]) {
+        val = 1;
+    }
+    $(day).val(val);
+}
+
+function showLoginPassword(){
+    showPassword(loginPassword, loginEye);
+}
+function showSignupPassword(){
+    showPassword(signupPassword, signupEye);
+}
+function showConfirmPassword(){
+    showPassword(confirmPassword, confirmEye);
+}
+
+function showPassword(password, eye){   
+    if (password.type === "password"){
+        password.type = "text";
+        eye.classList.add("hide-password");
+    } else {
+        password.type = "password";
+        eye.classList.remove("hide-password");
+    }
+}
 
 //reseting all the forms
 function resetForm() {
@@ -74,7 +191,7 @@ function resetForm() {
 }
 // setting error messages to the form
 function setFormMessage(formElement, type, message) {
-    
+
     const messageElement = formElement.querySelector(".form_message");
 
     messageElement.textContent = message;
@@ -140,13 +257,13 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         clearFormMessages(loginForm);
 
-        var username = document.getElementById('loginUsername').value;
-        var password = document.getElementById('loginPassword').value;
+        var loginUsernameValue = document.getElementById('loginUsername').value;
+        var loginPasswordValue = document.getElementById('loginPassword').value;
 
         //login checks
-        if (username === "" && password === "") {
+        if (loginUsernameValue === "" && loginPasswordValue === "") {
             setFormMessage(loginForm, "error", "Please fill all fileds")
-        } else if (username in users && users[username] === password) {
+        } else if (loginUsernameValue in users && users[loginUsernameValue] === loginPasswordValue) {
             game = document.getElementById("game__button");
             // login = document.getElementById("loginTab");
             game.classList.remove("hidden");
@@ -165,8 +282,8 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         clearFormMessages(signupForm);
 
-        signupUsername = document.getElementById("signupUsername").value;
-        signupPassword = document.getElementById("signupPassword").value;
+        signupUsernameValue = document.getElementById("signupUsername").value;
+        signupPasswordValue = document.getElementById("signupPassword").value;
 
         const inputs = signupForm.querySelectorAll('input, select');
         inputs.forEach(function (input) {
@@ -177,12 +294,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (document.getElementById("confirmPassword").value != document.getElementById("signupPassword").value) {
-            setFormMessage(signupForm, "error", "The password are diferent");
+            setFormMessage(signupForm, "error", "The passwords are diferent");
             flag = false;
         }
 
         if (flag) {
-            user = createuser(signupUsername, signupPassword);
+            user = createuser(signupUsernameValue, signupPasswordValue);
             // loginForm.classList.remove("hidden");
             // signupForm.classList.add("hidden");
             signup.style.display = "none"

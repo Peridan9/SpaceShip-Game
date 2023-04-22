@@ -2,6 +2,7 @@
   Overflow: Hidden;
 } */
 
+/* header style*/
 header {
   color: #fff;
   padding: 10px;
@@ -16,6 +17,7 @@ img {
   width: auto;
 }
 
+/* body style*/
 body {
   /* min-height: 100vh; */
   display: flex;
@@ -78,8 +80,7 @@ nav li a:hover:not(.active) {
   background-color: var(--color--primary-dark);
 }
 
-
-
+/* home style */
 #home {
   display: block;
   color: #fff;
@@ -103,6 +104,7 @@ nav li a:hover:not(.active) {
   cursor: pointer;
 }
 
+/* signup style */
 #signup {
   display: none;
 
@@ -115,6 +117,7 @@ nav li a:hover:not(.active) {
   border-radius: var(--border-radius);
 }
 
+/* login and singup style */
 #login {
   display: none;
 
@@ -249,17 +252,34 @@ nav li a:hover:not(.active) {
   box-sizing: border-box;
 }
 
-/* .fa-eye {
+.form__input-group {
+  position: relative;
+}
+
+.form__input-group #show_login_password,
+.form__input-group  #show_singup_password,
+.form__input-group #show_confirm_password {
   position: absolute;
-  top: 36%;
+  top: 30%;
   right: 4%;
   cursor: pointer;
   color: var(--color--primary);
-} */
+}
 
-.birthdayContainer {
+.container{
   padding: 15px;
 }
+SELECT{
+  padding: 5px;
+}
+input.date{
+  width:50px;
+  padding: 5px;
+}
+
+/* .birthdayContainer {
+  padding: 15px;
+} */
 
 SELECT {
   padding: 5px;
@@ -270,6 +290,7 @@ input.date {
   padding: 5px;
 }
 
+/* about style */
 #about {
   display: none;
 }
@@ -312,10 +333,12 @@ input.date {
   cursor: pointer;
 }
 
+/* game style */
 #game {
   display: none;
 }
 
+/* footer style */
 footer {
   position: fixed;
   left: 0;
