@@ -7,21 +7,16 @@ var gamePage;
 var loginForm;
 var signupForm;
 
-// out semi users db
+// our semi users db
 var users = {}
 users["p"] = "testuser"
 
-// window.addEventListener('load', function () {
-//     alert("It's loaded!")
-//   });
-
-
+// switch screens
 function switchScreen(screen) {
     homePage = document.getElementById("home");
     signupPage = document.getElementById("signup");
     loginPage = document.getElementById("login");
     aboutPage = document.getElementById("about");
-    // gameButton = document.getElementById("game__button");
     gamePage = document.getElementById("game");
 
     loginForm = document.getElementById("loginForm");
@@ -33,7 +28,6 @@ function switchScreen(screen) {
         signupPage.style.display = "none";
         loginPage.style.display = "none";
         aboutPage.style.display = "none";
-        // gameButton.style.display = "none";
         gamePage.style.display = "none";
     } else if (screen == "signup") {
         clearFormMessages(signupForm);
@@ -42,7 +36,6 @@ function switchScreen(screen) {
         signupPage.style.display = "block";
         loginPage.style.display = "none";
         aboutPage.style.display = "none";
-        // gameButton.style.display = "none";
     } else if (screen == "login") {
         clearFormMessages(loginForm);
         loginForm.reset();
@@ -50,19 +43,13 @@ function switchScreen(screen) {
         signupPage.style.display = "none";
         loginPage.style.display = "block";
         aboutPage.style.display = "none";
-        // gameButton.style.display = "none";
     } else if (screen == "about") {
-        // homePage.style.display = "none";
-        // signupPage.style.display = "none";
-        // loginPage.style.display = "none";
         aboutPage.style.display = "block";
-        // gameButton.style.display = "none";
     } else if (screen == "game") {
         homePage.style.display = "none";
         signupPage.style.display = "none";
         loginPage.style.display = "none";
         aboutPage.style.display = "none";
-        // gameButton.style.display = "block";
         gamePage.style.display = "block";
     }
 }
@@ -79,44 +66,46 @@ function switchScreen(screen) {
 //     }
 // }
 
+//reseting all the forms
 function resetForm() {
     for (form in document.forms) {
         form.reset();
     }
 }
-
+// setting error messages to the form
 function setFormMessage(formElement, type, message) {
+    
     const messageElement = formElement.querySelector(".form_message");
 
     messageElement.textContent = message;
     messageElement.classList.remove("form__message--success", "form__message--error");
     messageElement.classList.add(`form__message--${type}`);
 }
-
+//clearing error messages from form
 function clearFormMessage(formElement) {
     const messageElement = formElement.querySelector(".form_message");
 
     messageElement.textContent = "";
     messageElement.classList.remove("form__message--success", "form__message--error");
 }
-
+//setting input error in form
 function setInputError(inputElement, message) {
     inputElement.classList.add("form__input--error");
     inputElement.parentElement.querySelector(".form__input-error-message").textContent = message;
 }
-
+//clearing input error in form
 function clearInputError(inputElement) {
     inputElement.classList.remove("form__input--error");
     inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
 }
-
+//clearing all error messages from form
 function clearFormMessages(formElement) {
     clearFormMessage(formElement);
     document.querySelectorAll(".form__input").forEach(inputElement => {
         clearInputError(inputElement)
     });
 }
-
+//creating new user
 function createuser(userName, siPassword) {
     users[userName] = siPassword
 }
@@ -126,11 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.querySelector("#loginForm");
     const signupForm = document.querySelector("#signupForm");
 
+    //switching to signup form by clicking on link in login form
     document.querySelector("#linkCreateAccount").addEventListener("click", e => {
         e.preventDefault();
-
-        // loginForm.classList.add("hidden");
-        // signupForm.classList.remove("hidden");
 
         signup.style.display = "block";
         login.style.display = "none";
@@ -138,12 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
         clearFormMessages(loginForm);
         loginForm.reset();
     });
-
+    //switching to login form by clicking on link in signup form
     document.querySelector("#linkLogin").addEventListener("click", e => {
         e.preventDefault();
-
-        // loginForm.classList.remove("hidden");
-        // signupForm.classList.add("hidden");
 
         signup.style.display = "none";
         login.style.display = "block";
@@ -151,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearFormMessages(signupForm);
         signupForm.reset();
     });
-
+    //submitting login form
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
         clearFormMessages(loginForm);
@@ -168,15 +152,13 @@ document.addEventListener("DOMContentLoaded", () => {
             game.classList.remove("hidden");
             // login.classList.add("hidden");
             switchScreen("game");
+            clearFormMessages(loginForm);
+            loginForm.reset();
         } else {
             setFormMessage(loginForm, "error", "Invalid username/password combination");
         }
-
-        clearFormMessages(loginForm);
-        loginForm.reset();
-
     });
-    // signup form errors and submit
+    //submitting login form
     signupForm.addEventListener("submit", function (e) {
         flag = true;
 
@@ -210,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
             signupForm.reset();
         }
     });
-    // input errors
+    // input errors in form
     document.querySelectorAll(".form__input").forEach(inputElement => {
         inputElement.addEventListener("blur", e => {
             if (e) {
@@ -236,13 +218,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
+//MODAL DIALOG exits:
 // When the user clicks on <span> (x), close the modal
 function closeModal() {
     modal = document.getElementById("about");
     modal.style.display = "none";
 }
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
     modal = document.getElementById("about");
@@ -250,7 +231,6 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
-
 // When the user clicks the ESC, close it
 document.onkeydown = function (event) {
     modal = document.getElementById("about");
@@ -259,47 +239,3 @@ document.onkeydown = function (event) {
         modal.style.display = "none";
     }
 }
-
-// $('.form').find('input, textarea').on('keyup blur focus', function (e) {
-
-//     var $this = $(this),
-//         label = $this.prev('label');
-
-//     if (e.type === 'keyup') {
-//         if ($this.val() === '') {
-//             label.removeClass('active highlight');
-//         } else {
-//             label.addClass('active highlight');
-//         }
-//     } else if (e.type === 'blur') {
-//         if ($this.val() === '') {
-//             label.removeClass('active highlight');
-//         } else {
-//             label.removeClass('highlight');
-//         }
-//     } else if (e.type === 'focus') {
-
-//         if ($this.val() === '') {
-//             label.removeClass('highlight');
-//         }
-//         else if ($this.val() !== '') {
-//             label.addClass('highlight');
-//         }
-//     }
-
-// });
-
-// $('.tab a').on('click', function (e) {
-
-//     e.preventDefault();
-
-//     $(this).parent().addClass('active');
-//     $(this).parent().siblings().removeClass('active');
-
-//     target = $(this).attr('href');
-
-//     $('.tab-content > div').not(target).hide();
-
-//     $(target).fadeIn(600);
-
-// });

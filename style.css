@@ -1,21 +1,20 @@
-html {
-  /* Overflow: Hidden; */
-}
+/* html {
+  Overflow: Hidden;
+} */
 
 header {
   color: #fff;
   padding: 10px;
   float: right;
   width: 100%;
-  height: 10px;
-  /* text-align: left; */
-  align-items: left;
+  height: 3rem;
+  /* align-items: left; */
 }
 
-/* .name_logo {
-  display: flex;
-  
-} */
+img {
+  height: 3rem;
+  width: auto;
+}
 
 body {
   /* min-height: 100vh; */
@@ -49,7 +48,7 @@ nav {
   width: 100%;
 }
 
-ul {
+nav ul {
   top: 0px;
   list-style-type: none;
   margin: 0;
@@ -57,12 +56,12 @@ ul {
   overflow: hidden;
 }
 
-li {
+nav li {
   float: inline;
   float: left;
 }
 
-li a {
+nav li a {
   display: block;
   color: white;
   text-align: center;
@@ -70,7 +69,7 @@ li a {
   text-decoration: none;
 }
 
-li a:hover:not(.active) {
+nav li a:hover:not(.active) {
   background-color: var(--color--primary-dark);
   color: #fff;
 }
@@ -141,9 +140,9 @@ li a:hover:not(.active) {
 }
 
 /* TODO: fix the signup alignment */
-.form {
+/* .form {
   top: 0;
-}
+} */
 
 .form>*:first-child {
   margin-top: 0;
