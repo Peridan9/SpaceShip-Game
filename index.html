@@ -1,18 +1,146 @@
 <html>
-  <head>
-  </head>
-  <body>
-    <style>
-        body {
-            margin: 0;
-        }
-    </style>
-    <div class="screen" id="game">
-        <canvas></canvas>
-        <script src="./index.js"></script>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/d056580058.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script src="frontend.js" referrerpolicy="origin"></script>
+  <title>SPACESHIPS</title>
+
+  <link rel="icon" href="rocket-launch.png" type="image/x-icon">
+
+
+</head>
+
+<body>
+
+  <header>
+    <img src="rocket-launch.png">
+    <i class="fa-solid fa-ufo-beam fa-lg">SPACESHIPS</i>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a class="" id="welcomTab" href="#home" onclick="switchScreen('home')">Welcome</a></li>
+      <li><a class="" id="signupTab" href="#signup" onclick="switchScreen('signup')">Signup</a></li>
+      <li><a class="" id="loginTab" href="#login" onclick="switchScreen('login')">Login</a></li>
+      <li><a class="" id="aboutTab" href="#about" onclick="switchScreen('about')">About</a></li>
+      <li><a class="gameTab hidden" id="game__button" href="#game" onclick="switchScreen('game')">Play game</a></li>
+    </ul>
+  </nav>
+
+  <div id="home">
+    <h2>Welcome</h2>
+    <p>Daniella kapustyan 315340349 <a id="siteLink"
+        href="https://web-development-environments-2023.github.io/315340349/">click here </a>to see my Tzipi Shavit
+      site</p>
+    <p>Daniel Peri 205968126 <a id="siteLink"
+        href="https://web-development-environments-2023.github.io/205968126/">click here </a>to see my "Ozzy" Osbourne
+      site</p>
+    <p>To play the game you must <button class="login-button" onclick="switchScreen('login')">Login</button></p>
+    <p>Don't have an account? <button class="signup-button" onclick="switchScreen('signup')">Signup</button></p>
+  </div>
+
+  <div id="login">
+    <form action="POST" class="form" id="loginForm">
+      <h1 class="form__title">Login</h1>
+      <div class="form_message form__message--error"></div>
+      <div class="form__input-group">
+        <input autofocus type="text" class="form__input" id="loginUsername" autofocus placeholder="Username">
+        <div class="form__input-error-message"></div>
+      </div>
+      <div class="form__input-group password-container">
+        <input type="password" class="form__input" id="loginPassword" placeholder="Password">
+        <span class="fa-solid fa-eye" id="show_login_password" onclick="showLoginPassword()"></span>
+        <div class="form__input-error-message"></div>
+      </div>
+      <button class="form__button" type="submit">Continue</button>
+      <p class="form__text">
+        <a class="form__link" href="./" id="linkCreateAccount">Don't have account? Create an account</a>
+      </p>
+    </form>
+  </div>
+
+  <div id="signup">
+    <form action="POST" class="form" id="signupForm">
+      <h1 class="form__title">Signup</h1>
+      <div class="form_message form__message--error"></div>
+      <div class="form__input-group">
+        <input autofocus type="text" id="signupUsername" class="form__input" placeholder="Username">
+        <div class="form__input-error-message"></div>
+      </div>
+      <div class="form__input-group">
+        <input type="password" id="signupPassword" class="form__input" placeholder="Password">
+        <span class="fa-solid fa-eye" id="show_singup_password" onclick="showSignupPassword()"></span>
+        <div class="form__input-error-message"></div>
+      </div>
+      <div class="form__input-group">
+        <input type="password" id="confirmPassword" class="form__input" placeholder="Confirm password">
+        <span class="fa-solid fa-eye" id="show_confirm_password" onclick="showConfirmPassword()"></span>
+        <div class="form__input-error-message"></div>
+      </div>
+      <div class="form__input-group">
+        <input type="text" id="signupFirstName" class="form__input" placeholder="First name">
+        <div class="form__input-error-message"></div>
+      </div>
+      <div class="form__input-group">
+        <input type="text" id="signupLastName" class="form__input" placeholder="Last name">
+        <div class="form__input-error-message"></div>
+      </div>
+      <div class="form__input-group">
+        <input type="email" id="signupEmail" class="form__input" placeholder="email">
+        <div class="form__input-error-message"></div>
+      </div>
+
+      <div class="birthdayContainer">
+        <label>birthday :</label>
+        <SELECT id="month" name="month" onchange="change_month(this)">
+        </SELECT>
+        <SELECT id="day" name="day">
+        </SELECT>
+        <SELECT id="year" name="year" onchange="change_year(this)">
+        </SELECT>
+        <br />
+        <br />
+      </div>
+
+      <button class="form__button" type="submit">Continue</button>
+      <p class="form__text">
+        <a class="form__link" href="./" id="linkLogin">Already have an account? Log in</a>
+      </p>
+    </form>
+  </div>
+
+  <div id="about" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>About</h2>
+      </div>
+      <div class="modal-body">
+        <p>Daniella Kapustyan, Daniel Peri</p>
+        <p>TODO: add...</p>
+      </div>
+      <div class="modal-footer">
+        <h3>Thank you!</h3>
+      </div>
     </div>
-    <!-- <canvas></canvas>
-    <script src="./index.js"></script> -->
-    
-  </body>
+  </div>
+
+  <div class="screen" id="game">
+    <canvas></canvas>
+  </div>
+
+  <footer>
+    <p>Contact us: <a href="mailto:kapustya@post.bgu.ac.il">Daniella Kapustyan</a>
+      <a href="mailto:peridan@post.bgu.ac.il"> , Daniel Peri </a>
+    </p>
+  </footer>
+
+</body>
+
 </html>
