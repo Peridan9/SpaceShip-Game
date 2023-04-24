@@ -64,6 +64,7 @@ function switchScreen(screen) {
         loginPage.style.display = "none";
         aboutPage.style.display = "none";
         gamePage.style.display = "block";
+        
     }
 }
 

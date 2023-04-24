@@ -11,7 +11,14 @@ header {
   height: 3rem;
   /* align-items: left; */
 }
-
+#game{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100% - 3rem;
+  overflow: hidden;
+}
 img {
   height: 3rem;
   width: auto;
