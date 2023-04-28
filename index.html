@@ -9,6 +9,7 @@
   <script src="https://kit.fontawesome.com/d056580058.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script src="frontend.js" referrerpolicy="origin"></script>
+  <script src="index.js" referrerpolicy="gamescript"></script>
   <title>SPACESHIPS</title>
 
   <link rel="icon" href="rocket-launch.png" type="image/x-icon">
@@ -29,12 +30,14 @@
       <li><a class="" id="signupTab" href="#signup" onclick="switchScreen('signup')">Signup</a></li>
       <li><a class="" id="loginTab" href="#login" onclick="switchScreen('login')">Login</a></li>
       <li><a class="" id="aboutTab" href="#about" onclick="switchScreen('about')">About</a></li>
-      <li><a class="gameTab hidden" id="game__button" href="#game" onclick="switchScreen('game')">Play game</a></li>
+      <li><a class="gameTab hidden" id="game__button" href="#game" onclick="switchtoconf()">Play game</a></li> 
     </ul>
   </nav>
 
   <div id="home">
-    <h2>Welcome</h2>
+    <section>
+      <h3 class="test-shadow">Welcome</h3>
+    </section>
     <p>Daniella kapustyan 315340349 <a id="siteLink"
         href="https://web-development-environments-2023.github.io/315340349/">click here </a>to see my Tzipi Shavit
       site</p>
@@ -58,7 +61,7 @@
         <span class="fa-solid fa-eye" id="show_login_password" onclick="showLoginPassword()"></span>
         <div class="form__input-error-message"></div>
       </div>
-      <button class="form__button" type="submit">Continue</button>
+      <button class="form__button" type="submit" id="login_continue">Continue</button>
       <p class="form__text">
         <a class="form__link" href="./" id="linkCreateAccount">Don't have account? Create an account</a>
       </p>
@@ -131,10 +134,77 @@
     </div>
   </div>
 
-  <div id="game">
-    <canvas></canvas>
-    <script src="./index.js"></script>
+  <div class='game' id="gamePage" style="top: 150;">
+    <div class="gameinfo" id="gameinfo">
+    <a
+    style="position: fixed; z-index: 10; color:white; margin:0; left: 10px; top:170px;"
+    ><span>Score: </span> <span id="scoreEL">0</span></a>
+    <a
+    style="position: fixed; z-index: 10; color:white; margin:0; left: 10px; top:190px;"
+    >Lives: </span>  <span id='Lives'>3</span></a>
+    <a
+    style="position: fixed; z-index: 10; color:white; margin:0; left: 10px; top:210px;"
+    >Timer:</span>  <span id='countdown'>0</span></a>
+  </div>
+    <canvas id="gameCanvas" style="display: none;"></canvas>
     
+  </div>
+
+  <div id="confi" style="display: none;">
+    <div id="confi_container">
+      <h1 class="form__title">Configuration</h1>
+      <button id="key_set" onclick="choose_key()">On Click Set Your Desired Key</button>
+      <div class="volume-bar">
+        <label for="volume-range">Volume:</label>
+        <input type="range" id="my-range" min="0" max="100" value="50" oninput="updateSliderValue(this.value)">
+        <output for="volume-range" class="slider-value" id="vol_volume-value">50%</output>
+      </div>
+      <div class="countdown-time">
+        <label for="countdown-range">Countdown Time:</label>
+        <input type="range" id="countdown-range" name="countdown-range" min="120" max="600" value="120" oninput="updateSliderTime(this.value)">
+        <output for="countdown-range" class="slider-value" id="countdown-value">02:00</output>
+      </div>
+      <button id="start_game" onclick="game_start()">Start Game</button>
+    </div>
+
+    <style>
+      .volume-bar, .countdown-time {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+      }
+      
+      .volume-bar label, .countdown-time label {
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      
+      .slider-value {
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+    </style>
+  </div>
+  
+
+
+  <div id = "loseGame" style="display: none;">
+      <div id="table_container">
+        <h1 class="End_title" id="lose-title" style="color: white;">YOU DONE</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Score</th>
+              <th>Time Left</th>
+            </tr>
+          </thead>
+          <tbody id="tablebody">
+  
+          </tbody>
+        </table>
+      </div>
   </div>
 
   <footer>
