@@ -294,7 +294,7 @@ class Invader{
             },
             velocity:invprojvol
         }))
-
+        invadershoot.play()
     }
 }
 
@@ -364,6 +364,10 @@ class InvaderProjectile {
         this.position.y += this.velocity
     }
 }
+const gameaudio = new Audio('./media/gamemusic.mp3')
+const playershoot = new Audio('./media/playersound.mp3')
+const invadershoot = new Audio('./media/invadersound.mp3')
+const explosionsound = new Audio('./media/invaderboom.wav')
 let player = null
 const playerProjectiles = []
 const invaderProjectiles = []
@@ -456,6 +460,10 @@ function game_start(){
     counter = 0
     canshoot = true
     game_won = false
+    let audiolvl = document.getElementById('vol_volume-value').value
+    audiolvl = parseInt(audiolvl)/100
+    gameaudio.volume = audiolvl
+    gameaudio.play()
     grid = new Grid()
     gameinfo.style.display = 'block'
     timeLeft = parseTime(document.getElementById('countdown-value').value) // set the initial time left
@@ -498,6 +506,8 @@ function switchtoconf(){
     if(countdownInterval){
         clearInterval(countdownInterval)
     }
+    gameaudio.pause()
+    gameaudio.currentTime = 0
     switchScreen('confi')
 }
   
@@ -521,11 +531,14 @@ function lose_game(){
         losetitle.innerHTML = 'you can do better'
         addScore(loggedUser,score,'Time Over')
     }
+    gameaudio.pause()
+    gameaudio.currentTime = 0
     switchScreen("loseGame")
 }
 
 function shoot(){
     if(canshoot){
+        playershoot.play()
         playerProjectiles.push(new Projectile({
             position: {
                 x:player.position.x + player.width/2,
@@ -535,6 +548,8 @@ function shoot(){
             color: '#00FFFF'
         })) 
       }
+    //   playershoot.pause()
+      playershoot.currentTime = 0
       canshoot = false;
 }
 
@@ -581,7 +596,7 @@ function animation(){
     if(!gamepaused){
         // console.log('Game runing')
         canvas.width = innerWidth
-        canvas.height = innerHeight - 90
+        canvas.height = innerHeight - 200
         c.drawImage(back1, 0, 0, canvas.width, canvas.height)
         // canvas.width = innerWidth
         // canvas.height = innerHeight
@@ -691,6 +706,7 @@ function animation(){
                             //     object: Invader,
                             //     color: 'white'
                             // })
+                            explosionsound.play()
                             console.log('this is the invader: ' , invaderfound.score) // this is what I need
                             score += invaderfound.score
                             scoreEL.innerHTML = score
@@ -789,11 +805,13 @@ addEventListener('keydown', ({key}) => {
                     lose_game()
                 }
                 }, 1000); // run the countdown every second
+                gameaudio.play()
                 animation()
             }else{
                 console.log('got here!222')
                 gamepaused = true
                 clearInterval(countdownInterval)
+                gameaudio.pause()
             }
             break
 
