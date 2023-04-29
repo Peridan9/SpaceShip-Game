@@ -13,6 +13,8 @@ var eye;
 // our semi users db
 var users = {}
 users["p"] = "testuser"
+var loggedUser
+
 
 // switch screens
 function switchScreen(screen) {
@@ -20,7 +22,11 @@ function switchScreen(screen) {
     signupPage = document.getElementById("signup");
     loginPage = document.getElementById("login");
     aboutPage = document.getElementById("about");
-    gamePage = document.getElementById("game");
+    confiPage = document.getElementById("confi");
+    gamePage = document.getElementById("gamePage");
+    game_butt = document.getElementById("game__button");
+    gameLost = document.getElementById("loseGame");
+    // console.log('this is game page' ,gamePage);
 
     loginForm = document.getElementById("loginForm");
     signupForm = document.getElementById("signupForm");
@@ -29,6 +35,8 @@ function switchScreen(screen) {
     signupEye = document.getElementById("show_singup_password");
     confirmEye = document.getElementById("show_confirm_password");
 
+    gameCanvas = document.getElementById("gameCanvas");
+
     span = document.getElementsByClassName("close")[0];
     if (screen == "home") {
         homePage.style.display = "block";
@@ -36,6 +44,9 @@ function switchScreen(screen) {
         loginPage.style.display = "none";
         aboutPage.style.display = "none";
         gamePage.style.display = "none";
+        confi.style.display = "none";
+        gameLost.style.display = "none";
+        gameCanvas.style.display = "none";
     } else if (screen == "signup") {
         clearFormMessages(signupForm);
         signupPassword.type = "password";
@@ -47,6 +58,9 @@ function switchScreen(screen) {
         signupPage.style.display = "block";
         loginPage.style.display = "none";
         aboutPage.style.display = "none";
+        confi.style.display = "none";
+        gameLost.style.display = "none";
+        gameCanvas.style.display = "none";
     } else if (screen == "login") {
         clearFormMessages(loginForm);
         loginPassword.type = "password";
@@ -56,6 +70,9 @@ function switchScreen(screen) {
         signupPage.style.display = "none";
         loginPage.style.display = "block";
         aboutPage.style.display = "none";
+        confi.style.display = "none";
+        gameLost.style.display = "none";
+        gameCanvas.style.display = "none";
     } else if (screen == "about") {
         aboutPage.style.display = "block";
     } else if (screen == "game") {
@@ -64,8 +81,44 @@ function switchScreen(screen) {
         loginPage.style.display = "none";
         aboutPage.style.display = "none";
         gamePage.style.display = "block";
+        confi.style.display = "none";
+        gameLost.style.display = "none";
+        gameCanvas.style.display = "block";
+    }  else if (screen == "confi") {
+        homePage.style.display = "none";
+        signupPage.style.display = "none";
+        loginPage.style.display = "none";
+        aboutPage.style.display = "none";
+        gamePage.style.display = "none";
+        confi.style.display = "block";
+        gameLost.style.display = "none";
+        gameCanvas.style.display = "none";
+    }  else if (screen == "loseGame") {
+        homePage.style.display = "none";
+        signupPage.style.display = "none";
+        loginPage.style.display = "none";
+        aboutPage.style.display = "none";
+        gamePage.style.display = "block";
+        confi.style.display = "none";
+        gameLost.style.display = "block";
+        gameCanvas.style.display = "none";
+
     }
 }
+
+// var canvas = document.getElementById('myCanvas');
+// var ctx = canvas.getContext('2d');
+
+// function resizeCanvas() {
+//     canvas.width = window.innerWidth;
+//     canvas.height = window.innerHeight;
+// }
+
+// // Initial resize
+// resizeCanvas();
+
+// // Resize canvas whenever the window is resized
+// window.addEventListener('resize', resizeCanvas);
 
 var Days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];// index => month [0-11]
 $(document).ready(function () {
@@ -109,6 +162,7 @@ $(document).ready(function () {
     }
     $('#year').append(option);
     $('#year').val(selectedYear);
+
 });
 
 function isLeapYear(year) {
@@ -190,6 +244,7 @@ function resetForm() {
         form.reset();
     }
 }
+
 // setting error messages to the form
 function setFormMessage(formElement, type, message) {
 
@@ -226,6 +281,16 @@ function clearFormMessages(formElement) {
 //creating new user
 function createuser(userName, siPassword) {
     users[userName] = siPassword
+}
+
+function updateSliderValue(val) {
+    var percentage = val + '%'
+    document.getElementById("vol_volume-value").textContent = percentage
+  }
+
+function updateSliderTime(val) {
+    var percentage = formatTime(val)
+    document.getElementById("countdown-value").textContent = percentage
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -266,10 +331,12 @@ document.addEventListener("DOMContentLoaded", () => {
             setFormMessage(loginForm, "error", "Please fill all fileds")
         } else if (loginUsernameValue in users && users[loginUsernameValue] === loginPasswordValue) {
             game = document.getElementById("game__button");
+            confi = document.getElementById("confi");
+            loggedUser = loginUsernameValue
             // login = document.getElementById("loginTab");
             game.classList.remove("hidden");
             // login.classList.add("hidden");
-            switchScreen("game");
+            switchScreen("confi");
             clearFormMessages(loginForm);
             loginForm.reset();
         } else {
@@ -357,3 +424,5 @@ document.onkeydown = function (event) {
         modal.style.display = "none";
     }
 }
+
+
