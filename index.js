@@ -131,7 +131,7 @@ class Player{
             this.image = image
             // console.log(innerWidth)
             // console.log(canvas.width)
-            let scale = innerWidth/13071
+            let scale = innerHeight/11000
             this.width = image.width * scale
             this.height = image.height * scale
             this.position = {
@@ -139,6 +139,7 @@ class Player{
                 y: canvas.height - this.height - 10
             }
         }
+        
 
     }
 
@@ -159,17 +160,19 @@ class Player{
     update(){
         if(this.image){
             this.draw()
-            if(this.width != this.image.width * innerWidth/13071){
+            console.log('this is the height: ', innerHeight)
+            if(this.width != this.image.width * innerHeight/11000){
                 // console.log('this is the width: ',this.width)
                 // console.log('this is the new width: ',this.image.width*innerWidth/6100)
-                var scalefactor = (this.image.width * innerWidth/13071)/this.width
+                var scalefactor = (this.image.width * innerHeight/11000)/this.width
                 this.position.x *= scalefactor
+                this.position.y *= scalefactor
             }
             this.position.x += this.velocity.x
             this.position.y += this.velocity.y
 
-            this.width = this.image.width * innerWidth/13071
-            this.height = this.image.height * innerWidth/13071
+            this.width = this.image.width * innerHeight/11000
+            this.height = this.image.height * innerHeight/11000
         }
         
     }
@@ -177,7 +180,7 @@ class Player{
     restart(){
         this.position = {
             x: canvas.width / 2 - this.width / 2,
-            y: canvas.height - this.image.height*innerWidth/13071 - 10
+            y: canvas.height - this.image.height*innerHeight/11000 - 10
         }
     }
 }
@@ -197,14 +200,13 @@ class Grid{
             //rows
             for (let y = 0; y < 4; y++){
             this.invaders.push(new Invader({position: {
-                x: x* innerWidth/15.5,
-                y: y* innerWidth/18
+                x: x* innerHeight/15,
+                y: y* innerHeight/17
             },
             score: 20 - y*5
         }))
             // console.log(this.invaders[0])
         }
-        console.log(this.invaders)
     }
 }
 
@@ -220,7 +222,7 @@ class Grid{
             this.width = lastinvader.position.x - firstinvader.position.x + lastinvader.width
             this.position.x = firstinvader.position.x
         }
-
+        console.log('this is the width: ', (innerWidth/18))
     }
 }
 class Invader{
@@ -246,7 +248,7 @@ class Invader{
         // image.src = './media/enemyship.png'
         image.onload = () => {
             this.image = image
-            let scale = innerWidth/6100
+            let scale = innerHeight/5500
             this.width = image.width * scale
             this.height = image.height * scale
             this.position = {
@@ -266,18 +268,18 @@ class Invader{
     update({velocity}){
         if(this.image){
             this.draw()
-            if(this.width != this.image.width * innerWidth/6100){
+            if(this.width != this.image.width * innerHeight/5500){
                 // console.log('this is the width: ',this.width)
                 // console.log('this is the new width: ',this.image.width*innerWidth/6100)
-                var scalefactor = (this.image.width * innerWidth/6100)/this.width
+                var scalefactor = (this.image.width * innerHeight/5500)/this.width
                 this.position.x *= scalefactor
                 this.position.y *= scalefactor
             }
             // console.log('this is the current width ' ,this.width)
             // console.log('this is the dynamic width ' ,this.image.width*innerWidth/6100)
             this.position.x += velocity
-            this.width = this.image.width * innerWidth/6100
-            this.height = this.image.height * innerWidth/6100
+            this.width = this.image.width * innerHeight/5500
+            this.height = this.image.height * innerHeight/5500
             
         }
         
