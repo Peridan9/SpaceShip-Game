@@ -110,6 +110,7 @@ $(document).ready(function () {
     $('#year').append(option);
     $('#year').val(selectedYear);
 });
+
 function isLeapYear(year) {
     year = parseInt(year);
     if (year % 4 != 0) {
