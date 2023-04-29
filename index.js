@@ -11,14 +11,10 @@ var gameinfo
 
 document.addEventListener('DOMContentLoaded', () =>{
     tableBody = document.getElementById('tablebody')
-    console.log('this is the tablebody' ,tableBody)
     canvas = document.getElementById('gameCanvas')
     scoreEL = document.getElementById('scoreEL')
     gameinfo = document.getElementById("gameinfo")
-    console.log(scoreEL)
-    // console.log(canvas)
     c = canvas.getContext('2d')
-    // console.log(canvas)
     canvas.width = innerWidth
     canvas.height = innerHeight
     back1 = new Image();
@@ -31,52 +27,39 @@ document.addEventListener("scroll", event => {
     event.preventDefault() // Prevent the default behavior of scrolling
   }, { passive: false })
 
-
-// function choose_key(){
-//     const keySetButton = document.getElementById('key_set')
-//     keySetButton.textContent = "Press any key to set your desired key";
-//     shootkey = ""
-//     console.log(shootkey)
-//   // Add an event listener to the document to listen for a keydown event
-//     document.addEventListener("keydown", event => {
-//     // Check if the pressed key is a single character and if the chosenKey variable is empty
-//     if (event.key.match(/^[a-z]$/i) && shootkey === "" && event.code != "Space") {
-//         shootkey = event.key; // Set the chosen key to the pressed key
-//         console.log("Chosen key1: " + shootkey)
-//         console.log(keySetButton)
-//         keySetButton.textContent = "Desired key: " + shootkey; // Update the text of the button to display the chosen key
-//         return
-//     }else if (event.code === "Space" && shootkey === "") {
-//         shootkey = " "; // Set the chosen key to the space key
-//         console.log("Chosen key2: Space")
-//         keySetButton.textContent = "Desired key: Space" // Update the text of the button to display the chosen key
-//         return
-//     }else{
-//         keySetButton.textContent = "Ilegal Key! Choose agian"
-//     }
-
-// })
-// }
-
-function choose_key() {
-    const keySetButton = document.getElementById('key_set')
-    keySetButton.textContent = "Press any letter key to set your desired key";
+  function choose_key() {
+    const keySetButton = document.getElementById('key_set');
+    // keySetButton.textContent = "Press any letter key to set your desired key";
     shootkey = "";
-    console.log(shootkey);
+    console.log('this is the shootkey', shootkey);
+  
+    const updateButton = () => {
+      if (shootkey === " ") {
+        keySetButton.textContent = "Desired key: Space";
+      } else if (shootkey.match(/^[a-z]$/i)) {
+        keySetButton.textContent = "Desired key: " + shootkey;
+      } else {
+        keySetButton.textContent = "Illegal Key! Choose again";
+      }
+    }
   
     // Add an event listener to the document to listen for a keydown event
     const keydownListener = (event) => {
       // Check if the pressed key is a single character and if the chosenKey variable is empty
-      if (event.key.match(/^[a-z]$/i) && shootkey === "" && event.code !== "Space") {
+      console.log('in keydownlistener')
+      console.log(event.key)
+      if (event.key.match(/^[a-z]$/i) && shootkey === "") {
+        isConfigured = true
         shootkey = event.key; // Set the chosen key to the pressed key
         console.log("Chosen key1: " + shootkey)
-        console.log(keySetButton)
-        keySetButton.textContent = "Desired key: " + shootkey; // Update the text of the button to display the chosen key
+        updateButton();
       } else if (event.code === "Space" && shootkey === "") {
+        isConfigured = true
         shootkey = " "; // Set the chosen key to the space key
         console.log("Chosen key2: Space")
-        keySetButton.textContent = "Desired key: Space" // Update the text of the button to display the chosen key
+        updateButton();
       } else {
+        isConfigured = false
         keySetButton.textContent = "Illegal Key! Choose again";
       }
     };
@@ -84,25 +67,15 @@ function choose_key() {
     const keyupListener = () => {
       document.removeEventListener("keydown", keydownListener);
       document.removeEventListener("keyup", keyupListener);
-      keySetButton.textContent = "Set Your Desired Key";
+    //   keySetButton.textContent = "Set Your Desired Key";
     };
   
     document.addEventListener("keydown", keydownListener);
     document.addEventListener("keyup", keyupListener);
-
-    console.log('final choosen key',shootkey)
+  
+    console.log('final chosen key', shootkey)
   }
   
-
-
-
-// canvas.width = innerWidth
-// canvas.height = innerHeight
-// const back1 = new Image();
-// back1.src = './media/back4.jpeg'
-// back1.onload = function() {
-//     c.drawImage(back1, 0, 0, canvas.width, canvas.height)
-// }
 
 let gridvol = 2
 //limit the window size?
@@ -160,7 +133,6 @@ class Player{
     update(){
         if(this.image){
             this.draw()
-            console.log('this is the height: ', innerHeight)
             if(this.width != this.image.width * innerHeight/11000){
                 // console.log('this is the width: ',this.width)
                 // console.log('this is the new width: ',this.image.width*innerWidth/6100)
@@ -222,7 +194,6 @@ class Grid{
             this.width = lastinvader.position.x - firstinvader.position.x + lastinvader.width
             this.position.x = firstinvader.position.x
         }
-        console.log('this is the width: ', (innerWidth/18))
     }
 }
 class Invader{
@@ -387,6 +358,7 @@ let lastTime = 0
 let game_won = false
 let timeLeft = 120
 let countdownInterval
+let isConfigured = false
 const keys = {
     ArrowRight: {
         pressed: false
@@ -406,6 +378,13 @@ function clearTable() {
   tableBody.innerHTML = ''
 }
 
+function checkifconfigured(){
+    if(!isConfigured){
+        alert('Please choose a shooting key first')
+    }else{
+        game_start()
+    }
+}
 // Function to add a new row to the table and sort by score
 function addScore(player, score, timeLeft) {
   // Create a new row for the score
@@ -462,8 +441,13 @@ function game_start(){
     counter = 0
     canshoot = true
     game_won = false
+    playerProjectiles.splice(0,playerProjectiles.length)
+    invaderProjectiles.splice(0,invaderProjectiles.length)
     let audiolvl = document.getElementById('vol_volume-value').value
     audiolvl = parseInt(audiolvl)/100
+    playershoot.volume = audiolvl
+    invadershoot.volume = audiolvl
+    explosionsound.volume = audiolvl
     gameaudio.volume = audiolvl
     gameaudio.play()
     grid = new Grid()
@@ -635,11 +619,6 @@ function animation(){
                 InvaderProjectile.position.y <= player.position.y + player.height &&
                 InvaderProjectile.position.x >= player.position.x &&
                 InvaderProjectile.position.x <= player.position.x + player.width){
-                    console.log('You Lose')
-                    // create_explosions({
-                    //     object: player,
-                    //     color: 'white'
-                    // })
                     if(lives <= 1){
                         lose_game();
                         gamelost = true
@@ -709,11 +688,9 @@ function animation(){
                             //     color: 'white'
                             // })
                             explosionsound.play()
-                            console.log('this is the invader: ' , invaderfound.score) // this is what I need
                             score += invaderfound.score
                             scoreEL.innerHTML = score
                             grid.invaders.splice(i,1)
-                            console.log(invaderfound.position)
                             playerProjectiles.splice(j, 1)
                             
                             if(grid.invaders.length > 0){
@@ -796,11 +773,9 @@ addEventListener('keydown', ({key}) => {
             break
         case 'Escape':
             if(gamepaused){
-                console.log('got here!')
                 gamepaused = false
                 countdownInterval = setInterval(() => {
                 timeLeft--; // decrement the time left
-                console.log('time left: ',timeLeft)
                 // countdownElement.innerHTML = timeLeft; // update the countdown element
             
                 if (timeLeft === 0) {
@@ -810,7 +785,6 @@ addEventListener('keydown', ({key}) => {
                 gameaudio.play()
                 animation()
             }else{
-                console.log('got here!222')
                 gamepaused = true
                 clearInterval(countdownInterval)
                 gameaudio.pause()
