@@ -501,7 +501,7 @@ function switchtoconf(){
   
 function lose_game(){
     const losetitle = document.getElementById('lose-title')
-
+    shootkey = ''
     gameinfo.style.display = 'none'
     clearInterval(countdownInterval)
     canvas.style.display = 'none'
@@ -521,6 +521,7 @@ function lose_game(){
     }
     gameaudio.pause()
     gameaudio.currentTime = 0
+    isConfigured = false
     switchScreen("loseGame")
 }
 
