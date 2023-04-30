@@ -114,12 +114,16 @@ nav li a:hover:not(.active) {
 
 .login-button,
 .signup-button  {
+  font-family: "Alumni Sans", sans-serif;
+  font-size: 35px;
+  font-weight: 600;
+  margin: 10px;
   width: 220px;
   height: 50px;
   border: none;
   outline: none;
   color: #fff;
-  background: #111;
+  background: #D27D2D;
   cursor: pointer;
   position: relative;
   z-index: 0;
@@ -146,7 +150,7 @@ nav li a:hover:not(.active) {
 
 .login-button:active,
 .signup-button:active {
-  color: #000
+  color: #D27D2D
 }
 
 .login-button:active:after,
@@ -166,7 +170,7 @@ nav li a:hover:not(.active) {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #111;
+  background: #D27D2D;
   left: 0;
   top: 0;
   border-radius: 10px;
@@ -449,10 +453,11 @@ td {
 
 td:first-child {
   font-weight: bold;
+  text-align: center;
 }
 
 td:nth-child(2) {
-  text-align: right;
+  text-align: center;
 }
 
 td:last-child {
@@ -461,7 +466,7 @@ td:last-child {
 
 /* confi style */
 
-#confi_container {
+/* #confi_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -472,14 +477,14 @@ td:last-child {
   color: #fff;
   text-transform: uppercase;
   gap: 30px;
-}
+} */
 
 #start_game {
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 60;
-  background-color: #0099ff;
+  margin-top: 10;
+  background-color: #D27D2D;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -493,23 +498,24 @@ td:last-child {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  margin-top: 0;
   display: flex;
-  background-color: #0099ff;
+  background-color: #D27D2D;
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 1.2rem;
-  margin-bottom: 40px;
+  margin-bottom:0px;
   cursor: pointer;
 }
 
 #key_set:hover{
-  background-color: #0066cc;
+  background-color: #B87333;
 }
 
 #start_game:hover {
-  background-color: #0066cc;
+  background-color: #B87333;
 }
 
 .volume-bar {
@@ -539,7 +545,7 @@ td:last-child {
   appearance: none;
   width: 20px;
   height: 20px;
-  background-color: #0099ff;
+  background-color: #D27D2D;
   cursor: pointer;
   border-radius: 50%;
 }
@@ -547,7 +553,7 @@ td:last-child {
 .slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
-  background-color: #0099ff;
+  background-color: #D27D2D;
   cursor: pointer;
   border-radius: 50%;
 }
@@ -555,17 +561,17 @@ td:last-child {
 /* styiling headers */
 
 :root {
-  /* --color-primary: #f6aca2;
+  --color-primary: #f6aca2;
   --color-secondary: #f49b90;
   --color-tertiary: #f28b7d;
   --color-quaternary: #f07a6a;
-  --color-quinary: #ee6352; */
+  --color-quinary: #ee6352;
   
-  --color-primary: #5192ED;
+  /* --color-primary: #5192ED;
   --color-secondary: #69A1F0;
   --color-tertiary: #7EAEF2;
   --color-quaternary: #90BAF5;
-  --color-quinary: #A2C4F5;
+  --color-quinary: #A2C4F5; */
  
 }
 
@@ -589,7 +595,7 @@ td:last-child {
 
 .End_title {
   text-shadow: 3px 3px 0 var(--color-secondary), 6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary), 12px 12px 0 var(--color-quinary);
-  font-family: bungee, sans-serif;
+  font-family: "Alumni Sans", sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   font-size: calc(2rem + 5vw);
@@ -706,3 +712,71 @@ td:last-child {
     transform: translate(0px, 0px);
   }
 }
+
+/* second font style */
+
+.confi_container {
+  font-family: "Alumni Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  min-width: 400px;
+  font-size: 2em;
+  background: rgba(33, 33, 33, 0.8);
+  color: #fff;
+  text-transform: uppercase;
+  gap: 0px;
+  border-radius: 10px;
+}
+
+h1 {
+  font-family: "Alumni Sans", sans-serif;
+  font-size: 5em;
+  /* text-decoration: underline; */
+}
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.3em;
+  }
+}
+
+.neuen_light {
+  /* font-style: italic; */
+  /* text-transform: uppercase; */
+  color: #fff;
+
+  transition: all 0.5s ease-in-out;
+  text-align: center;
+
+}
+.neuen_light:hover {
+  color: #fff;
+}
+
+.home_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home_container h1 {
+  font-size: 200px;
+  margin: 0;
+}
+
+.home_container p {
+  text-align: center;
+  margin: 0;
+}
+
+.home_container div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+

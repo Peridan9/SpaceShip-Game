@@ -333,6 +333,11 @@ document.addEventListener("DOMContentLoaded", () => {
             game = document.getElementById("game__button");
             confi = document.getElementById("confi");
             loggedUser = loginUsernameValue
+            //clearing table
+            clearTable()
+            const keySetButton = document.getElementById('key_set')
+            keySetButton.textContent = "On Click Set Your Desired Key"
+
             // login = document.getElementById("loginTab");
             game.classList.remove("hidden");
             // login.classList.add("hidden");

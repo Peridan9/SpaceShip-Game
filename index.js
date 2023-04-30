@@ -28,10 +28,10 @@ document.addEventListener("scroll", event => {
   }, { passive: false })
 
   function choose_key() {
-    const keySetButton = document.getElementById('key_set');
+    const keySetButton = document.getElementById('key_set')
     // keySetButton.textContent = "Press any letter key to set your desired key";
     shootkey = "";
-    console.log('this is the shootkey', shootkey);
+    // console.log('this is the shootkey', shootkey);
   
     const updateButton = () => {
       if (shootkey === " ") {
@@ -441,6 +441,8 @@ function game_start(){
     counter = 0
     canshoot = true
     game_won = false
+    const LivesElement = document.getElementById('Lives')
+    LivesElement.innerHTML = lives
     playerProjectiles.splice(0,playerProjectiles.length)
     invaderProjectiles.splice(0,invaderProjectiles.length)
     let audiolvl = document.getElementById('vol_volume-value').value
@@ -511,11 +513,11 @@ function lose_game(){
     }
     else if(score >= 100){
         losetitle.innerHTML = 'Winner!'
-        addScore(loggedUser,score,'Time Over')
+        addScore(loggedUser,score,formatTime(timeLeft))
     }
     else{
         losetitle.innerHTML = 'you can do better'
-        addScore(loggedUser,score,'Time Over')
+        addScore(loggedUser,score,formatTime(timeLeft))
     }
     gameaudio.pause()
     gameaudio.currentTime = 0
@@ -624,7 +626,6 @@ function animation(){
                         gamelost = true
                     }else{
                         const LivesElement = document.getElementById('Lives')
-                        console.log(LivesElement)
                         lives -= 1
                         LivesElement.innerHTML = lives
                         player.restart()

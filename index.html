@@ -6,6 +6,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@400;600;700&display=swap"" rel="stylesheet">
   <script src="https://kit.fontawesome.com/d056580058.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script src="frontend.js" referrerpolicy="origin"></script>
@@ -35,12 +36,12 @@
   </nav>
 
   <div id="home">
-    <section>
-      <h3 class="test-shadow">Welcome</h3>
-    </section>
-    <p>315340349, 205968126 </p>
-    <p>To play the game you must <button class="login-button" onclick="switchScreen('login')">Login</button></p>
-    <p>Don't have an account? <button class="signup-button" onclick="switchScreen('signup')">Signup</button></p>
+    <div class="home_container">
+      <h1 class="neuen_light" style="font-size: 200px; margin: 0;">SPACESHIPS</h1>
+      <p>315340349, 205968126 </p>
+      <p>To play the game you must <button class="login-button" onclick="switchScreen('login')">Login</button></p>
+      <p>Don't have an account? <button class="signup-button" onclick="switchScreen('signup')">Signup</button></p>
+    </div>
   </div>
 
   <div id="login">
@@ -148,9 +149,9 @@
   </div>
 
   <div id="confi" style="display: none;">
-    <div id="confi_container">
-      <h1 class="form__title">Configuration</h1>
-      <button id="key_set" onclick="choose_key()">On Click Set Your Desired Key</button>
+    <h1 class="neuen_light">Configuration</h1>
+    <div class="confi_container" id="confi_container">
+      <button id="key_set" onclick="choose_key()" style="font-family: Alumni Sans; font-weight: bold; font-size: 30px;">On Click Set Your Desired Key</button>
       <div class="volume-bar">
         <label for="volume-range">Volume:</label>
         <input type="range" id="my-range" min="0" max="100" value="50" oninput="updateSliderValue(this.value)">
@@ -161,7 +162,7 @@
         <input type="range" id="countdown-range" name="countdown-range" min="120" max="600" value="120" oninput="updateSliderTime(this.value)">
         <output for="countdown-range" class="slider-value" id="countdown-value">02:00</output>
       </div>
-      <button id="start_game" onclick="checkifconfigured()">Start Game</button>
+      <button id="start_game" onclick="checkifconfigured()" style="font-family: Alumni Sans; font-weight: bold; font-size: 30px;">Start Game</button>
     </div>
 
     <style>
